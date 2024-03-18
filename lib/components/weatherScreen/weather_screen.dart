@@ -50,9 +50,15 @@ class ForecastWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        LocationTextWidget(location: location),
-        TemperatureWidget(forecasts: forecasts),
-        DescriptionWidget(forecasts: forecasts)
+        Card(
+          child: Column(
+            children: [
+              LocationTextWidget(location: location),
+              TemperatureWidget(forecasts: forecasts),
+              DescriptionWidget(forecasts: forecasts)
+            ],
+          ),
+        ),
       ],
     );
   }
@@ -111,10 +117,12 @@ class LocationTextWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(4.0),
-      child: SizedBox(
-        width: 500,
-        child: Text("${location.city}, ${location.state}, ${location.zip}",
-            style: Theme.of(context).textTheme.headlineSmall),
+      child: Center(
+        child: SizedBox(
+          width: 500,
+          child: Text("${location.city}, ${location.state}, ${location.zip}",
+              style: Theme.of(context).textTheme.headlineSmall),
+        ),
       ),
     );
   }
