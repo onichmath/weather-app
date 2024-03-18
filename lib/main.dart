@@ -197,12 +197,45 @@ class _MyHomePageState extends State<MyHomePage> {
                 getLocation: getLocation,
                 closeEndDrawer: _closeEndDrawer),
           ),
+          const AttribtutionsButton(),
           ElevatedButton(
               onPressed: _closeEndDrawer, child: const Text("Close Settings"))
         ],
       ),
     );
   }
+}
+
+class AttribtutionsButton extends StatelessWidget {
+  const AttribtutionsButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: ElevatedButton(
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: const Text("Attributions"),
+                  content: const Text("Weather data: National Weather Service\nIcons: Erik Flower's Weather Icons with SIL OFL 1.1 License"),
+                  actions: [
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text("Close"))
+                  ],
+                );
+              });
+        },
+        child: const Text("Attributions"),
+      ),
+    );
+  }
+
 }
 
 class SettingsHeaderText extends StatelessWidget {
