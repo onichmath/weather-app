@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:cs492_weather_app/models/weather_forecast.dart';
 import 'package:intl/intl.dart';
@@ -30,10 +29,8 @@ class HourlyForecasts extends StatelessWidget {
       child: ListView.builder(
         itemCount: forecastsHourly.length,
         itemBuilder: (context, index) {
-          // Calculate the time for this forecast
           DateTime forecastTime = DateTime.now().add(Duration(hours: index));
 
-          // Format the time using DateFormat
           String formattedTime = DateFormat('EEEE h:mm a').format(forecastTime);
           return GestureDetector(
             onTap: () {
