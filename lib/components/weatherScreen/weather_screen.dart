@@ -53,9 +53,7 @@ class ForecastWidget extends StatelessWidget {
         Card(
           child: Column(
             children: [
-              LocationTextWidget(location: location),
-              TemperatureWidget(forecasts: forecasts),
-              DescriptionWidget(forecasts: forecasts)
+              CurrentForecast(location: location, forecastsHourly: forecastsHourly)
             ],
           ),
         ),
@@ -63,6 +61,28 @@ class ForecastWidget extends StatelessWidget {
     );
   }
 }
+class CurrentForecast extends StatelessWidget {
+  const CurrentForecast({
+    super.key,
+    required this.location,
+    required this.forecastsHourly
+  });
+
+  final UserLocation location;
+  final List<WeatherForecast> forecastsHourly;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        LocationTextWidget(location: location),
+        TemperatureWidget(forecasts: forecastsHourly),
+        DescriptionWidget(forecasts: forecastsHourly)
+      ],
+    );
+  }
+}
+
 
 class DescriptionWidget extends StatelessWidget {
   const DescriptionWidget({
