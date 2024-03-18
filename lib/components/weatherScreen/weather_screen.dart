@@ -27,13 +27,15 @@ class _WeatherScreenState extends State<WeatherScreen> {
         ? ForecastWidget(
             context: context,
             location: widget.getLocation(),
-            forecasts: widget.getForecastsHourly())
+            forecastsHourly: widget.getForecastsHourly(),
+            forecasts: widget.getForecasts(),)
         : LocationWidget(widget: widget));
   }
 }
 
 class ForecastWidget extends StatelessWidget {
   final UserLocation location;
+  final List<WeatherForecast> forecastsHourly;
   final List<WeatherForecast> forecasts;
   final BuildContext context;
 
@@ -41,7 +43,8 @@ class ForecastWidget extends StatelessWidget {
       {super.key,
       required this.context,
       required this.location,
-      required this.forecasts});
+      required this.forecasts,
+      required this.forecastsHourly});
 
   @override
   Widget build(BuildContext context) {
