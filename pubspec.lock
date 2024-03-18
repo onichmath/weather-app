@@ -485,6 +485,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "13.0.0"
+  weather_icons:
+    dependency: "direct main"
+    description:
+      name: weather_icons
+      sha256: "50c839054443feac600deb1869d52b6b947bc331c564bc01209a265228a5951b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0-nullsafety.0"
   web:
     dependency: transitive
     description:

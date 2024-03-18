@@ -4,6 +4,7 @@ import 'package:cs492_weather_app/models/weather_forecast.dart';
 import '../../models/user_location.dart';
 import 'package:flutter/material.dart';
 import '../location/location.dart';
+import 'package:weather_icons/weather_icons.dart';
 
 class WeatherScreen extends StatefulWidget {
   final Function getLocation;
@@ -86,11 +87,7 @@ class CurrentForecast extends StatelessWidget {
               ],
             ),
           ),
-          Expanded(child: Column(
-            children: [
-              Icon(Icons.sunny, size: 100, color: Colors.yellow,),
-            ],
-          ))
+          Expanded(child: DescriptionWidget(forecasts: forecastsHourly)),
         ],
       ),
     );
@@ -100,24 +97,50 @@ class CurrentForecast extends StatelessWidget {
 
 class DescriptionWidget extends StatelessWidget {
   const DescriptionWidget({
-    super.key,
+    Key? key,
     required this.forecasts,
-  });
+  }) : super(key: key);
 
   final List<WeatherForecast> forecasts;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 30,
-      width: 500,
+    IconData iconData;
+    Color iconColor;
+
+    // Determine the icon and color based on forecast data
+    if (forecasts.isNotEmpty) {
+      final WeatherForecast firstForecast = forecasts.first;
+      if (firstForecast.shortForecast.contains("Sunny")) {
+        iconData = WeatherIcons.day_sunny;
+        iconColor = Colors.yellow;
+      } else if (firstForecast.shortForecast.contains("Cloud")) {
+        iconData = WeatherIcons.cloud;
+        iconColor = Colors.grey;
+      } else if (firstForecast.shortForecast.contains("Rain")) {
+        iconData = WeatherIcons.rain;
+        iconColor = Colors.blue;
+      } else if (firstForecast.shortForecast.contains("Snow")) {
+        iconData = WeatherIcons.snow;
+        iconColor = Colors.grey;
+      }
+      else {
+        iconData = Icons.question_mark;
+        iconColor = Colors.red;
+      }
+    } else {
+      iconData = Icons.question_mark;
+      iconColor = Colors.red;
+    }
+
+    return Expanded(
       child: Center(
-        child: Text(forecasts.elementAt(0).shortForecast,
-            style: Theme.of(context).textTheme.headlineSmall),
+        child: Icon(iconData, size: 75, color: iconColor),
       ),
     );
   }
 }
+
 
 class TemperatureWidget extends StatelessWidget {
   const TemperatureWidget({
