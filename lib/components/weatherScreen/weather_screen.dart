@@ -28,7 +28,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
   Widget build(BuildContext context) {
     return (widget.getLocation() != null && widget.getForecasts().isNotEmpty
         ? ForecastWidget(
-            context: context,
+            //context: context,
             location: widget.getLocation(),
             forecastsHourly: widget.getForecastsHourly(),
             forecasts: widget.getForecasts(),)
@@ -36,18 +36,30 @@ class _WeatherScreenState extends State<WeatherScreen> {
   }
 }
 
-class ForecastWidget extends StatelessWidget {
+class ForecastWidget extends StatefulWidget {
   final UserLocation location;
   final List<WeatherForecast> forecastsHourly;
   final List<WeatherForecast> forecasts;
-  final BuildContext context;
 
-  const ForecastWidget(
-      {super.key,
-      required this.context,
-      required this.location,
-      required this.forecasts,
-      required this.forecastsHourly});
+  const ForecastWidget({
+    Key? key,
+    required this.location,
+    required this.forecasts,
+    required this.forecastsHourly,
+  }) : super(key: key);
+
+  @override
+  State<ForecastWidget> createState() => _ForecastWidgetState();
+}
+
+class _ForecastWidgetState extends State<ForecastWidget> {
+  WeatherForecast? selectedHourlyForecast;
+
+  void updateCurrentForecast(WeatherForecast forecast) {
+    setState(() {
+      selectedHourlyForecast = forecast;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +69,14 @@ class ForecastWidget extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         child: Column(
           children: [
-            CurrentForecast(location: location, forecastsHourly: forecastsHourly),
+            CurrentForecast(
+              location: widget.location,
+              selectedHourlyForecast: selectedHourlyForecast,
+            ),
+            HourlyForecasts(
+              forecastsHourly: widget.forecastsHourly,
+              onForecastSelected: updateCurrentForecast,
+            ),
           ],
         ),
       ),
@@ -65,14 +84,14 @@ class ForecastWidget extends StatelessWidget {
   }
 }
 class CurrentForecast extends StatelessWidget {
-  const CurrentForecast({
-    super.key,
-    required this.location,
-    required this.forecastsHourly
-  });
-
   final UserLocation location;
-  final List<WeatherForecast> forecastsHourly;
+  final WeatherForecast? selectedHourlyForecast;
+
+  const CurrentForecast({
+    Key? key,
+    required this.location,
+    required this.selectedHourlyForecast,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -82,12 +101,19 @@ class CurrentForecast extends StatelessWidget {
           Expanded(
             child: Column(
               children: [
-                TemperatureWidget(forecasts: forecastsHourly),
+                if (selectedHourlyForecast != null)
+                  TemperatureWidget(forecasts: [selectedHourlyForecast!]),
                 LocationTextWidget(location: location),
               ],
             ),
           ),
-          Expanded(child: DescriptionWidget(forecasts: forecastsHourly)),
+          Expanded(
+            child: DescriptionWidget(
+              forecasts: selectedHourlyForecast != null
+                  ? [selectedHourlyForecast!]
+                  : [],
+            ),
+          ),
         ],
       ),
     );

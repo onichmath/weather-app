@@ -1,29 +1,54 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:cs492_weather_app/models/weather_forecast.dart';
+import 'package:intl/intl.dart';
 
-class HourlyForecasts extends StatefulWidget {
+// class HourlyForecasts extends StatefulWidget {
+//   final List<WeatherForecast> forecastsHourly;
+
+//   const HourlyForecasts({super.key, required this.forecastsHourly});
+
+//   @override
+//   State<HourlyForecasts> createState() => _HourlyForecastsState();
+// }
+
+class HourlyForecasts extends StatelessWidget {
   final List<WeatherForecast> forecastsHourly;
+  final Function(WeatherForecast) onForecastSelected;
 
-  const HourlyForecasts({super.key, required this.forecastsHourly});
+  const HourlyForecasts({
+    Key? key,
+    required this.forecastsHourly,
+    required this.onForecastSelected,
+  }) : super(key: key);
 
-  @override
-  State<HourlyForecasts> createState() => _HourlyForecastsState();
-}
-
-class _HourlyForecastsState extends State<HourlyForecasts> {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: widget.forecastsHourly.length,
-      itemBuilder: (context, index) {
-        return Card(
-          child: ListTile(
-            title: Text(widget.forecastsHourly[index].name),
-            subtitle: Text(widget.forecastsHourly[index].shortForecast),
-            trailing: Text('${widget.forecastsHourly[index].temperature}°F'),
-          ),
-        );
-      },
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.6, 
+      width: MediaQuery.of(context).size.width,
+      child: ListView.builder(
+        itemCount: forecastsHourly.length,
+        itemBuilder: (context, index) {
+          // Calculate the time for this forecast
+          DateTime forecastTime = DateTime.now().add(Duration(hours: index));
+
+          // Format the time using DateFormat
+          String formattedTime = DateFormat('EEEE h:mm a').format(forecastTime);
+          return GestureDetector(
+            onTap: () {
+              onForecastSelected(forecastsHourly[index]);
+            },
+            child: Card(
+              child: ListTile(
+                title: Text(formattedTime),
+                subtitle: Text(forecastsHourly[index].shortForecast),
+                trailing: Text('${forecastsHourly[index].temperature}°F', style: Theme.of(context).textTheme.displaySmall),
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }
