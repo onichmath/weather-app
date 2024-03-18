@@ -1,3 +1,5 @@
+import 'package:cs492_weather_app/components/weatherScreen/daily_forecasts.dart';
+import 'package:cs492_weather_app/components/weatherScreen/hourly_forecasts.dart';
 import 'package:cs492_weather_app/models/weather_forecast.dart';
 import '../../models/user_location.dart';
 import 'package:flutter/material.dart';
@@ -48,16 +50,16 @@ class ForecastWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Card(
-          child: Column(
-            children: [
-              CurrentForecast(location: location, forecastsHourly: forecastsHourly)
-            ],
-          ),
+    return Center(
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          children: [
+            CurrentForecast(location: location, forecastsHourly: forecastsHourly),
+          ],
         ),
-      ],
+      ),
     );
   }
 }
@@ -73,12 +75,24 @@ class CurrentForecast extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        LocationTextWidget(location: location),
-        TemperatureWidget(forecasts: forecastsHourly),
-        DescriptionWidget(forecasts: forecastsHourly)
-      ],
+    return Card(
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              children: [
+                TemperatureWidget(forecasts: forecastsHourly),
+                LocationTextWidget(location: location),
+              ],
+            ),
+          ),
+          Expanded(child: Column(
+            children: [
+              Icon(Icons.sunny, size: 100, color: Colors.yellow,),
+            ],
+          ))
+        ],
+      ),
     );
   }
 }
@@ -95,11 +109,12 @@ class DescriptionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 25,
+      height: 30,
       width: 500,
       child: Center(
-          child: Text(forecasts.elementAt(0).shortForecast,
-              style: Theme.of(context).textTheme.bodyMedium)),
+        child: Text(forecasts.elementAt(0).shortForecast,
+            style: Theme.of(context).textTheme.headlineSmall),
+      ),
     );
   }
 }
@@ -140,8 +155,10 @@ class LocationTextWidget extends StatelessWidget {
       child: Center(
         child: SizedBox(
           width: 500,
-          child: Text("${location.city}, ${location.state}, ${location.zip}",
-              style: Theme.of(context).textTheme.headlineSmall),
+          child: Center(
+            child: Text("${location.city}, ${location.state}, ${location.zip}",
+                style: Theme.of(context).textTheme.bodyLarge),
+          ),
         ),
       ),
     );

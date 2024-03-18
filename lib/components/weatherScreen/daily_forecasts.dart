@@ -13,17 +13,21 @@ class DailyForecasts extends StatefulWidget {
 class _DailyForecastsState extends State<DailyForecasts> {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: widget.forecasts.length,
-      itemBuilder: (context, index) {
-        return Card(
-          child: ListTile(
-            title: Text(widget.forecasts[index].name),
-            subtitle: Text(widget.forecasts[index].shortForecast),
-            trailing: Text('${widget.forecasts[index].temperature}°F'),
-          ),
-        );
-      },
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.8,
+      height: MediaQuery.of(context).size.height * 0.3,
+      child: ListView.builder(
+        itemCount: widget.forecasts.length,
+        itemBuilder: (context, index) {
+          return Card(
+            child: ListTile(
+              title: Text(widget.forecasts[index].name),
+              subtitle: Text(widget.forecasts[index].shortForecast),
+              trailing: Text('${widget.forecasts[index].temperature}°F'),
+            ),
+          );
+        },
+      ),
     );
   }
 }
