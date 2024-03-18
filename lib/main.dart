@@ -1,11 +1,11 @@
 import 'dart:convert';
-
 import 'components/location/location.dart';
 import 'package:flutter/material.dart';
 import 'models/user_location.dart';
 import 'components/weatherScreen/weather_screen.dart';
 import 'models/weather_forecast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cs492_weather_app/theme.dart';
 
 const sqlCreateDatabase = 'assets/sql/create.sql';
 
@@ -25,8 +25,8 @@ class MyApp extends StatelessWidget {
         builder: (_, mode, __) {
           return MaterialApp(
             title: 'CS 492 Weather App',
-            theme: ThemeData.light(),
-            darkTheme: ThemeData.dark(),
+            theme: lightTheme,
+            darkTheme: darkTheme,
             themeMode: mode,
             home: MyHomePage(title: "CS492 Weather App", notifier: _notifier),
           );
