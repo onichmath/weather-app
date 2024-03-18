@@ -137,18 +137,22 @@ class DescriptionWidget extends StatelessWidget {
     // Determine the icon and color based on forecast data
     if (forecasts.isNotEmpty) {
       final WeatherForecast firstForecast = forecasts.first;
+      final bool isDaytime = firstForecast.isDaytime;
       if (firstForecast.shortForecast.contains("Sunny")) {
         iconData = WeatherIcons.day_sunny;
         iconColor = Colors.yellow;
       } else if (firstForecast.shortForecast.contains("Cloud")) {
-        iconData = WeatherIcons.cloud;
+        iconData = isDaytime ? WeatherIcons.day_cloudy : WeatherIcons.night_cloudy;
         iconColor = Colors.grey;
       } else if (firstForecast.shortForecast.contains("Rain")) {
-        iconData = WeatherIcons.rain;
+        iconData = isDaytime ? WeatherIcons.day_rain : WeatherIcons.night_rain;
         iconColor = Colors.blue;
       } else if (firstForecast.shortForecast.contains("Snow")) {
-        iconData = WeatherIcons.snow;
+        iconData = isDaytime ? WeatherIcons.day_snow : WeatherIcons.night_snow;
         iconColor = Colors.grey;
+      } else if (firstForecast.shortForecast.contains("Clear")) {
+        iconData = isDaytime ? WeatherIcons.day_sunny : WeatherIcons.night_clear;
+        iconColor = Colors.black;
       }
       else {
         iconData = Icons.question_mark;
