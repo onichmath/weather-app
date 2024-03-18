@@ -1,23 +1,25 @@
 import "package:flutter/material.dart";
 
 final lightTheme = ThemeData(
+  fontFamily: 'Roboto',
   colorScheme: const ColorScheme.light(
-    background: Colors.white,
+    background: Color.fromARGB(255, 134, 184, 241),
     primary: Colors.blue,
-    secondary: Colors.blueAccent,
-    onPrimary: Colors.white,
+    secondary: Color.fromARGB(255, 255, 255, 255),
+    onPrimary: Color.fromARGB(255, 255, 255, 255),
     onSecondary: Colors.white,
-    onBackground: Colors.black,
+    onBackground: Color.fromARGB(255, 255, 255, 255),
     onError: Colors.white,
     onSurface: Colors.black,
-    surface: Colors.white,
+    surface: Color.fromARGB(255, 255, 0, 0),
     error: Colors.red,
   ),
 );
 
 final darkTheme = ThemeData(
+  fontFamily: 'Roboto',
   colorScheme: const ColorScheme.dark(
-    background: Colors.black,
+    background: Color.fromARGB(255, 3, 38, 56),
     primary: Colors.blue,
     secondary: Colors.blueAccent,
     onPrimary: Colors.white,
