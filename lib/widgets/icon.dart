@@ -46,7 +46,7 @@ class IconWidget extends StatelessWidget {
 
     return Expanded(
       child: Center(
-        child: Icon(iconData, size: 75, color: iconColor),
+        child: Icon(iconData, size: 60, color: iconColor),
       ),
     );
   }

@@ -19,7 +19,7 @@ final lightTheme = ThemeData(
 final darkTheme = ThemeData(
   fontFamily: 'Roboto',
   colorScheme: const ColorScheme.dark(
-    background: Color.fromARGB(255, 3, 38, 56),
+    background: Color.fromARGB(255, 0, 0, 0),
     primary: Colors.blue,
     secondary: Colors.blueAccent,
     onPrimary: Color.fromARGB(255, 6, 26, 49),
@@ -27,7 +27,7 @@ final darkTheme = ThemeData(
     onBackground: Colors.white,
     onError: Colors.white,
     onSurface: Colors.white,
-    surface: Colors.black,
+    surface: Color.fromARGB(255, 3, 38, 56),
     error: Colors.red,
   ),
 );
