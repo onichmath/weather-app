@@ -10,8 +10,8 @@ final lightTheme = ThemeData(
     onSecondary: Colors.white,
     onBackground: Colors.black,
     onError: Colors.black,
-    onSurface: Colors.black,
-    surface: Colors.white,
+    onSurface: Colors.white,
+    surface: Colors.blueGrey,
     error: Colors.red,
   ),
 );
