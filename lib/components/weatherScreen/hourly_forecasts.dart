@@ -32,7 +32,8 @@ class HourlyForecasts extends StatelessWidget {
           DateTime forecastTime = DateTime.now().add(Duration(hours: index));
 
           String formattedTime = DateFormat('EEEE h:mm a').format(forecastTime);
-          return GestureDetector(
+          return InkWell(
+            splashColor: Theme.of(context).colorScheme.onBackground.withOpacity(0.25),
             onTap: () {
               onForecastSelected(forecastsHourly[index]);
             },
